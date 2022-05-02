@@ -1,0 +1,35 @@
+{
+  "name": "beta_access",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc --build",
+    "schema:build": "prisma generate",
+    "schema:push": "prisma db push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KeinerCX",
+  "license": "ISC",
+  "dependencies": {
+    "@trpc/client": "^9.23.2",
+    "@trpc/next": "^9.23.2",
+    "@trpc/react": "^9.23.2",
+    "@trpc/server": "^9.23.2",
+    "dotenv": "^16.0.0",
+    "fastify": "^3.29.0",
+    "jwt-decode": "^3.1.2",
+    "node-fetch": "^3.2.4",
+    "node-fetch-polyfill": "^2.0.6",
+    "nodemon": "^2.0.16",
+    "react-query": "^3.38.1",
+    "ts-node": "^10.7.0",
+    "zod": "^3.14.4"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.31"
+  }
+}
