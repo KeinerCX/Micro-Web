@@ -2,6 +2,7 @@
   "extends": "tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
-  "noImplicitAny": false,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
-
+  "compilerOptions": {
+    "noImplicitAny": false /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+  }
 }
