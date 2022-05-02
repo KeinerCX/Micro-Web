@@ -15,4 +15,4 @@ server.register(fastifyTRPCPlugin, {
   trpcOptions: { router: appRouter },
 });
 
-server.listen(process.env.PORT || 3001, "0.0.0.0", () => { console.log("beta_access endpoint is running") });
+server.listen(process.env.PORT || 3002, "0.0.0.0", () => { console.log("beta_access endpoint is running") });

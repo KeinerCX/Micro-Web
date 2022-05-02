@@ -11,10 +11,14 @@ const server = fastify({
   maxParamLength: 5000,
 });
 
+server.register(require('@fastify/cors'), { 
+  // put your options here
+})
+
 //@ts-ignore
 server.register(fastifyTRPCPlugin, {
   prefix: "/",
   trpcOptions: { router: appRouter, createContext },
 });
 
-server.listen(3000, "0.0.0.0", () => { console.log("users endpoint is running") });
+server.listen(3001, "0.0.0.0", () => { console.log("users endpoint is running") });
