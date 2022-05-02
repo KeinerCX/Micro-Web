@@ -1,77 +1,83 @@
-# Turborepo starter with npm
+![Micro Banner](assets/MicroBanner.png)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=alert_status)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=security_rating)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=ncloc)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=bugs)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=sqale_index)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=KeinerCX_Micro&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=KeinerCX_Micro)
 
-This is an official starter turborepo.
+# Micro
 
-## What's inside?
+Micro is being remade!
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+The core team currently consists of:
 
-### Apps and Packages
+- [Modded](https://github.com/TheModdedChicken)
+- [Minota](https://github.com/xMinota)
+- [Edaz](https://github.com/edazpotato)
+- [Levi](https://github.com/lerichardson)
+- [Ashton](https://github.com/ash-quinn)
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+but we welcome contributions from anyone!
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+You can have a look at the Figma designs [here](https://www.figma.com/file/JElZBj1O6KFYTBAfu4zx75/Micro?node-id=0%3A1).
 
-### Utilities
+## Old Repo
 
-This turborepo has some additional tools already setup for you:
+Looking for the old Micro repo? Find it [here](https://github.com/edazpotato/Micro).
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Future Plans
 
-## Setup
+- [ ] [Initial Release](https://github.com/KeinerCX/Micro/projects/1)
+- [ ] Emoji support
+- [ ] Supporter System
+- [ ] Image Support & Custom Emojis for Supporters
+- [ ] Friend System
+- [ ] Developer Portal
 
-This repository is used in the `npx create-turbo@latest` command, and selected when choosing which package manager you wish to use with your monorepo (npm).
+## Contributing
 
-### Build
+### Project Setup
 
-To build all apps and packages, run the following command:
+To contribute you can just clone the repository with `git clone https://github.com/KeinerCX/Micro.git` to clone the repository over HTTPS
 
-```
-cd my-turborepo
-npm run build
-```
+However, be sure to look at the README files in the [frontend](./frontend/) and [backend](./backend/) folders depending on what you're contributing to.
 
-### Develop
+### Pull Requests
 
-To develop all apps and packages, run the following command:
+**Note**: Merge all pull requests to the development branch, NOT the main branch.
 
-```
-cd my-turborepo
-npm run dev
-```
+Feel free to put whatever you'd like in the description of your pull request.
+However, please be sure to include a brief summary of the changes you made and where you made them.
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching (Beta) you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+Example:
 
 ```
-cd my-turborepo
-npx turbo login
+  [Frontend]
+    - Added bagels
+    - Added cookies
+
+  [Backend]
+    - Added cookie route:
+      Buys millions of cookies on the user's behalf
+    - Added bagel route:
+      Does the same thing as the cookie route but with bagels
+
+  [Docs]
+    - Added food page:
+      - Added instructions on how to send me food
+      - gimme food now
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Documentation
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+Most of the documentation can be found on the [wiki](https://github.com/KeinerCX/Micro/wiki).
 
-```
-npx turbo link
-```
+#### Branding
 
-## Useful Links
+Quick reference for Micro's banding colours and other related things.
 
-Learn more about the power of Turborepo:
+Icon set: [Feather Icons](https://github.com/feathericons/feather)
 
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+**Colours**
+| Name | Hex Code | RGB Values | Preview |
+| ------------- | ---------- | -------------- | :-----: |
+| Alles Blue | `#23539E` | `35, 83, 158` | ![image](https://user-images.githubusercontent.com/46797041/135750178-6662305f-54b4-43c6-ae69-7105e8984bfa.png) |
+| Micro Pink | `#9E2348` | `158, 35, 72` | ![image](https://user-images.githubusercontent.com/46797041/135750200-d47de455-b454-4e1d-ae15-c25c7d9f55e7.png) |
+| IfElse Purple | `#90348c` | `144, 52, 140` | ![image](https://user-images.githubusercontent.com/46797041/135750211-02dcfe02-0bfc-4d11-8361-f6e7521080d3.png) |
