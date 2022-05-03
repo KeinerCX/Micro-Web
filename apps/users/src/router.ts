@@ -39,17 +39,15 @@ export const appRouter = createRouter()
 
       let data = await prisma.betaCode.findFirst({
         where: {
-          id: access_code
-        }
+          id: access_code,
+        },
       });
 
       if (!data)
-        return {
-          ok: false,
-          data: {
-            message: "beta_code_invalid",
-          },
-        };
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "access_code_not_found",
+        });
 
       try {
         const user = await prisma.user.create({
@@ -66,25 +64,18 @@ export const appRouter = createRouter()
 
         await prisma.betaCode.delete({
           where: {
-            id: access_code
-          }
-        })
-
-        return {
-          ok: true,
-          data: {
-            ...user,
+            id: access_code,
           },
-        };
+        });
+
+        return user;
       } catch (e) {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
           if (e.code === "P2002") {
-            return {
-              ok: false,
-              data: {
-                error: "unique_constraint_validation_failure",
-              },
-            };
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "unique_constraint_validation_failure",
+            });
           }
         }
         throw e;
@@ -105,12 +96,20 @@ export const appRouter = createRouter()
           OR: [{ email: formattedLoginID }, { username: formattedLoginID }],
         },
       });
-      if (!user) return { ok: false, data: { error: "login_id_invalid" } };
+      if (!user)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "login_id_invalid",
+        });
 
       const auth = await argon2.verify(user.password, password, {
         type: argon2.argon2id,
       });
-      if (!auth) return { ok: false, data: { error: "invalid_login" } };
+      if (!auth)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "invalid_login",
+        });
 
       return Util.CreateSession(user.id, ctx.ip!);
     },
@@ -132,12 +131,10 @@ export const appRouter = createRouter()
       } catch (e) {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
           if (e.code === "P2001") {
-            return {
-              ok: false,
-              data: {
-                error: "record_not_found",
-              },
-            };
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "record_not_found",
+            });
           }
         }
         throw e;
@@ -167,12 +164,10 @@ export const appRouter = createRouter()
           });
 
           if (!data)
-            return {
-              ok: false,
-              data: {
-                error: "user_not_found",
-              },
-            };
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "user_not_found",
+            });
 
           return {
             id: data.id,
