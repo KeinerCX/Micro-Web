@@ -116,14 +116,15 @@ export const appRouter = createRouter()
     },
   })
   .mutation("logout", {
-    resolve: async ({ ctx }) => {
+    input: z.string(),
+    resolve: async ({ ctx, input }) => {
       try {
         prisma.user.update({
           where: { id: ctx.user?.id },
           data: {
             sessions: {
               delete: {
-                session_id: ctx.session?.session_id,
+                session_id: input,
               },
             },
           },
@@ -195,12 +196,12 @@ export const appRouter = createRouter()
       .query("flags", {
         input: z.string(),
         resolve: async ({ ctx, input }) => {
-          return (await Util.GetQueryUser(ctx, input))?.flags;
+          return (await Util.GetQueryUser(input)).flags;
         },
       })
 
       // ~Flags~
-      .mutation("sessionInformation", {
+      .query("sessionInfo", {
         input: z.string(),
         resolve: async ({ ctx, input }) => {
           return prisma.session.findFirst({
@@ -216,7 +217,7 @@ export const appRouter = createRouter()
     createRouter()
       .middleware(({ next, ctx }) => {
         if (ctx.user?.flags.includes("admin")) return next();
-
+        
         throw new TRPCError({ code: "UNAUTHORIZED" });
       })
       .mutation("addFlags", {
@@ -224,9 +225,9 @@ export const appRouter = createRouter()
           user_id: z.string(),
           flags: z.array(z.string()),
         }),
-        resolve: async ({ ctx, input }) => {
+        resolve: async ({ input }) => {
           return await prisma.user.update({
-            where: { id: (await Util.GetQueryUser(ctx, input.user_id))?.id },
+            where: { id: (await Util.GetQueryUser(input.user_id)).id },
             data: {
               flags: { push: input.flags.filter((f) => Flags.includes(f)) },
             },
@@ -240,7 +241,7 @@ export const appRouter = createRouter()
         }),
         resolve: async ({ ctx, input }) => {
           return await prisma.user.update({
-            where: { id: (await Util.GetQueryUser(ctx, input.user_id))?.id },
+            where: { id: (await Util.GetQueryUser(input.user_id)).id },
             data: {
               flags: {
                 set: ctx.user?.flags.filter((f) => !input.flags.includes(f)),

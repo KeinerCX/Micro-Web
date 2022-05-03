@@ -43,15 +43,10 @@ namespace Util {
     return token;
   }
 
-  export async function GetQueryUser(
-    ctx: { user: ISafeUser | null },
-    input: string
-  ) {
-    if (input) {
-      const quser = await prisma.user.findUnique({ where: { id: input } });
-      if (!quser) throw new TRPCError({ code: "BAD_REQUEST" });
-      return quser;
-    } else return ctx.user;
+  export async function GetQueryUser(input: string) {
+    const quser = await prisma.user.findUnique({ where: { id: input } });
+    if (!quser) throw new TRPCError({ code: "BAD_REQUEST", message: "user_not_found" });
+    return quser;
   }
 }
 
