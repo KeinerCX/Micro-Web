@@ -3,7 +3,7 @@ import fastify from "fastify";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import { appRouter } from "./router";
 
-//enitiaize the cunfigoratiun fwom .env
+//initialize the cunfigoratiun fwom .env
 config();
 
 const server = fastify({

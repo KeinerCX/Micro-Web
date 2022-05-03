@@ -2,7 +2,7 @@ import fastify from "fastify";
 import { config } from "dotenv";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import { appRouter } from "./router";
-import { createContext } from "./types/Context";
+import { createContext } from "./Context";
 
 //initialize the cunfigoratiun fwom .env
 config();
@@ -21,4 +21,4 @@ server.register(fastifyTRPCPlugin, {
   trpcOptions: { router: appRouter, createContext },
 });
 
-server.listen(3001, "0.0.0.0", () => { console.log("users endpoint is running") });
+server.listen(3001, "0.0.0.0", () => { console.log("posts endpoint is running") });

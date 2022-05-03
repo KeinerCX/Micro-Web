@@ -65,9 +65,7 @@ export const appRouter = trpc
     trpc
       .router<Context>()
       .middleware(async ({ ctx, next }) => {
-        if (!ctx.user!.flags?.includes("admin")) {
-          throw new TRPCError({ code: "UNAUTHORIZED" });
-        }
+        if (!ctx.user?.flags.includes("admin")) throw new TRPCError({ code: "UNAUTHORIZED" });
         return next();
       })
       .mutation("createToken", {
