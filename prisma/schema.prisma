@@ -15,7 +15,6 @@ model betaCode {
   id String @id
 }
 
-
 enum Apps {
   MOBILE
   DESKTOP
@@ -23,6 +22,7 @@ enum Apps {
 }
 
 model User {
+  @@map("users")
   id String @id
 
   username    String    @unique
@@ -31,20 +31,34 @@ model User {
   email       String    @unique
   password    String
   avatar      String?
-  posts       String[]
+  posts       Post[]
   joined      DateTime  @default(now())
   sessions    Session[]
-
-  @@map("users")
 }
 
 model Session {
+  @@map("sessions")
   session_id String @id @default(uuid())
 
   expiry            DateTime
   client_ip         String
   client_user_agent String
   client_app        Apps
+
   User              User?    @relation(fields: [user_id], references: [id])
-  user_id            String?
+  user_id           String?
+}
+
+model Post {
+  @@map("posts")
+  id      String   @id
+
+  body    String
+  images  String[]
+  flags   String[]
+  replies String[]
+  posted  DateTime
+
+  User   User?     @relation(fields: [author], references: [id])
+  author String?
 }

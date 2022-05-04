@@ -41,28 +41,20 @@ export const appRouter = trpc
   .merge(
     "post.",
     trpc.router<Context>()
-      .mutation("edit", {
-        input: z.object({
-          username: z.string().min(3).max(20),
-          password: z.string().min(8).max(1000),
-          email: z.string().email(),
-    
-          //this is temp
-          access_code: z.string().length(8),
-        }),
-        resolve: async ({ input }) => {
-          
-        },
-      })
+      .merge(
+        "edit", 
+        trpc.router<Context>()
+        .mutation("body", {
+          input: z.object({
+            post_id: z.string().length(20),
+          }),
+          resolve: async ({ input }) => {
+            
+          },
+        })
+      )
       .mutation("delete", {
-        input: z.object({
-          username: z.string().min(3).max(20),
-          password: z.string().min(8).max(1000),
-          email: z.string().email(),
-    
-          //this is temp
-          access_code: z.string().length(8),
-        }),
+        input: z.string().length(20),
         resolve: async ({ input }) => {
           
         },

@@ -180,7 +180,6 @@ export const appRouter = createRouter()
             username: data.username,
             display_name: data.displayname,
             avatar: data.avatar,
-            posts: data.posts,
             flags: data.flags,
           };
         },

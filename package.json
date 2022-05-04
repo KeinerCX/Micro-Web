@@ -10,7 +10,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel --global-deps='.env'",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "schema:gen": "prisma generate",
+    "schema:push": "prisma db push"
   },
   "devDependencies": {
     "prettier": "latest",
