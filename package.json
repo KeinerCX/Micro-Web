@@ -1,5 +1,5 @@
 {
-  "name": "turborepo-basic-shared",
+  "name": "micro",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -8,9 +8,11 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev --parallel --global-deps='.env'",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "schema:gen": "prisma generate",
+    "schema:push": "prisma db push"
   },
   "devDependencies": {
     "prettier": "latest",
