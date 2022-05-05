@@ -3,7 +3,6 @@ import { TRPCError } from "@trpc/server";
 import * as date from "date-and-time";
 import { FastifyReply } from "fastify";
 import * as jwt from "jsonwebtoken";
-import { ISafeUser } from "../types/interfaces/ISafeUser";
 import { prisma } from "./prisma";
 
 namespace Util {
