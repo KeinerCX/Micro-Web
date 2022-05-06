@@ -1,3 +1,5 @@
+import { Post } from "@prisma/client";
+
 export type ISafeUser = {
   id: string;
   username: string;
@@ -7,7 +9,7 @@ export type ISafeUser = {
   // Remove for obv reasone
   //password: string;
   avatar: string | null;
-  posts: string[];
+  posts?: Post[];
   joined: Date;
 
   // Remove because no session access

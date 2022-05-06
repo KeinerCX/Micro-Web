@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel --global-deps='.env'",
+    "dev": "turbo run dev --parallel --global-deps='.env' --ignore='apps/posts/*'",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "schema:gen": "prisma generate",
