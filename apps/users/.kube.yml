@@ -17,14 +17,15 @@ spec:
     spec:
       containers:
         - name: users-api
-          image: ghcr.io/keinercx/users-api:1.0
+          image: ghcr.io/keinercx/microservices/users-api:56b9f296a2f21fc8b0eb5e16983430b2e47108a4
           env:
             - name: DATABASE_URL
-              configMapKeyRef:
-              name: database-creds
-              key: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-creds
+                  key: DATABASE_URL
           ports:
-          - containerPort: 3000
+            - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -53,7 +54,7 @@ spec:
         - name: users-api
           port: 3000
       middlewares:
-      - name: users-api-replacepath
+        - name: users-api-replacepath
 ---
 # Replace the path with /foo
 apiVersion: traefik.containo.us/v1alpha1
