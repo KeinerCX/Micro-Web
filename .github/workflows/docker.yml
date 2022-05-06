@@ -2,9 +2,9 @@ name: publish
 
 on:
   push:
-    # Pattern matched against refs/tags
-    tags:
-      - "v[0-9]+.[0-9]+"
+    # # Pattern matched against refs/tags
+    # tags:
+    #   - "v[0-9]+.[0-9]+"
 jobs:
   publish-api-images:
     runs-on: ubuntu-latest
