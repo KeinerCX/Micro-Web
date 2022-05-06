@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beta-access-api
+  labels:
+    app: micro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod-label: beta-access-api-prod
+  template:
+    metadata:
+      labels:
+        pod-label: beta-access-api-prod
+    spec:
+      containers:
+        - name: beta-access-api
+          image: ghcr.io/keinercx/beta-access-api:1.0
+          env:
+            - name: DATABASE_URL
+              configMapKeyRef:
+              name: database-creds
+              key: DATABASE_URL
+          ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: beta-access-api
+  labels:
+    app: micro
+spec:
+  selector:
+    pod-label: beta-access-api-prod
+  ports:
+    - protocol: TCP
+      port: 3000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: beta-access-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`micro.keiner.lol`) && PathPrefix(`/api/beta-access`)
+      services:
+        - name: beta-access-api
+          port: 3000
+      middlewares:
+      - name: beta-access-api-replacepath
+---
+# Replace the path with /foo
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: beta-access-api-replacepath
+spec:
+  stripPrefix:
+    prefixes:
+      - /api/beta-access

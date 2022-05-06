@@ -1,0 +1,34 @@
+name: publish
+
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:
+      - "v[0-9]+.[0-9]+"
+jobs:
+  publish-api-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build the Users API
+        run: |
+          docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
+          docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA
+
+      # - name: Build the Users API
+      #   run: |
+      #     docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
+      #     docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA
+
+      # - name: Build the Users API
+      #   run: |
+      #     docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
+      #     docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA

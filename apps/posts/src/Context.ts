@@ -4,18 +4,23 @@ import * as trpcNext from "@trpc/server/adapters/next";
 import jwtDecode from "jwt-decode";
 import { prisma } from "./utility/prisma";
 
+export interface IAuthToken {
+  session_id: string;
+}
+
 export async function createContext(opts?: trpcNext.CreateNextContextOptions) {
   //This is where we will do authorizing once we have the user service
+  let token = jwtDecode<IAuthToken>(opts!.req.headers.authorization!);
 
   let user = await prisma.user.findFirst({
     where: {
       sessions: {
         some: {
-          session_id: token.session_id
-        }
-      }
-    }
-  })
+          session_id: token.session_id,
+        },
+      },
+    },
+  });
 
   return {
     user,

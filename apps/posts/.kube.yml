@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-api
+  labels:
+    app: micro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod-label: posts-api-prod
+  template:
+    metadata:
+      labels:
+        pod-label: posts-api-prod
+    spec:
+      containers:
+        - name: posts-api
+          image: ghcr.io/keinercx/posts-api:1.0
+          env:
+            - name: DATABASE_URL
+              configMapKeyRef:
+              name: database-creds
+              key: DATABASE_URL
+          ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-api
+  labels:
+    app: micro
+spec:
+  selector:
+    pod-label: posts-api-prod
+  ports:
+    - protocol: TCP
+      port: 3000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: posts-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`micro.keiner.lol`) && PathPrefix(`/api/posts`)
+      services:
+        - name: posts-api
+          port: 3000
+      middlewares:
+      - name: posts-api-replacepath
+---
+# Replace the path with /foo
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: posts-api-replacepath
+spec:
+  stripPrefix:
+    prefixes:
+      - /api/posts
