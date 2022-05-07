@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+:root {
+  --background: #000000;
+  --foreground: #111111;
+
+  --text: #ffffff;
+  --text-accent: #229cf4;
+
+  --input-background: #333333;
+  --input-seperator: #444444;
+
+  --button-primay: #23539e;
+  --button-primary_hover: #306ac7;
+}
+body {
+  background-color: var(--background);
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+
+hr {
+  border-style: none;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginContainer {
+  display: flex;
+
+  flex-direction: column;
+
+  background: var(--foreground);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.loginContainer form {
+  display: flex;
+
+  width: 15vw;
+
+  flex-direction: column;
+  gap: 12px;
+
+  align-items: center;
+}
+
+.loginContainer form input {
+  background-color: var(--input-background);
+  border-style: none;
+  height: 1rem;
+  width: 13vw;
+  padding: 0.5rem;
+  font-size: 18px;
+  caret-color: var(--input-seperator);
+  color: var(--text);
+}
+
+.loginContainer form input:focus {
+  outline: none;
+}
+
+.loginContainer form button {
+  color: var(--text);
+  background-color: var(--button-primay);
+  width: 10rem;
+  height: 3rem;
+  border-radius: 12px;
+  outline: none;
+  border-style: none;
+  font-size: 20px;
+}
+
+.loginContainer form label {
+  margin-right: auto;
+  font-size: 18px;
+}
+
+.loginContainer form button:focus {
+  color: var(--text);
+  background-color: var(--button-primary_hover);
+  border-style: none;
+}
+
+.loginContainer form .inputContainer {
+  background-color: var(--input-background);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.loginContainer form .inputContainer hr {
+  height: 4px;
+  background-color: var(--input-seperator);
+  border: none;
+}
+
+.loginSwitchText {
+  color: var(--text-accent);
+  margin-top: 12px;
+}

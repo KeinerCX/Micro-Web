@@ -5,7 +5,7 @@ import { usersServiceRouter } from "../../users/src/router";
 export default function Web() {
   let [message, setMessage] = useState("");
 
-  const registerUser = async (event: any) => {
+  const loginUser = async (event: any) => {
     event.preventDefault();
 
     let client = createTRPCClient<usersServiceRouter>({
@@ -33,30 +33,34 @@ export default function Web() {
     }
   };
   return (
-    <div>
-      <h1>Web App</h1>
-      <h3>{message}</h3>
-      <form onSubmit={registerUser}>
-        <label htmlFor="name">Username</label>
-        <input id="name" type="text" autoComplete="username" required />
+    <div className="container">
+      <div className="loginContainer">
+        <form onSubmit={loginUser}>
+          <div className="inputContainer">
+            <input
+              id="name"
+              type="text"
+              autoComplete="username"
+              required
+              placeholder="Username"
+            />
 
-        <label htmlFor="name">Email</label>
-        <input id="email" type="text" autoComplete="email" required />
+            <input
+              id="password"
+              type="password"
+              autoComplete="password"
+              required
+              placeholder="Password"
+            />
+          </div>
+          <hr></hr>
 
-        <label htmlFor="name">Password</label>
-        <input id="password" type="password" autoComplete="password" required />
-
-        <hr></hr>
-        <label htmlFor="name">Access Code</label>
-        <input
-          id="access_code"
-          type="text"
-          autoComplete="access_code"
-          required
-        />
-
-        <button type="submit">Register</button>
-      </form>
+          <button type="submit">Register</button>
+        </form>
+      </div>
+      <a className="loginSwitchText" href="/login">
+        Switch to Login
+      </a>
     </div>
   );
 }
