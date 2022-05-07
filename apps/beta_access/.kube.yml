@@ -2,65 +2,70 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: beta-access-api
+  name: beta-codes-api
   labels:
     app: micro
 spec:
   replicas: 1
   selector:
     matchLabels:
-      pod-label: beta-access-api-prod
+      pod-label: beta-codes-api-prod
   template:
     metadata:
       labels:
-        pod-label: beta-access-api-prod
+        pod-label: beta-codes-api-prod
     spec:
       containers:
-        - name: beta-access-api
-          image: ghcr.io/keinercx/beta-access-api:1.0
+        - name: beta-codes-api
+          image: ghcr.io/keinercx/microservices/beta-codes-api:1f2645d137ea88d029de1244d3fc7d9efebd1109
           env:
             - name: DATABASE_URL
-              configMapKeyRef:
-              name: database-creds
-              key: DATABASE_URL
-          ports:
-          - containerPort: 3000
+              valueFrom:
+                configMapKeyRef:
+                  name: database-creds
+                  key: DATABASE_URL
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+                  optional: false 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: beta-access-api
+  name: beta-codes-api
   labels:
     app: micro
 spec:
   selector:
-    pod-label: beta-access-api-prod
+    pod-label: beta-codes-api-prod
   ports:
     - protocol: TCP
-      port: 3000
+      port: 3002
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: beta-access-ingress
+  name: beta-codes-ingress
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`micro.keiner.lol`) && PathPrefix(`/api/beta-access`)
+      match: Host(`micro.keiner.lol`) && PathPrefix(`/api/beta-codes`)
       services:
-        - name: beta-access-api
-          port: 3000
+        - name: beta-codes-api
+          port: 3002
       middlewares:
-      - name: beta-access-api-replacepath
+        - name: beta-codes-api-replacepath
 ---
 # Replace the path with /foo
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: beta-access-api-replacepath
+  name: beta-codes-api-replacepath
 spec:
   stripPrefix:
     prefixes:
-      - /api/beta-access
+      - /api/beta-codes

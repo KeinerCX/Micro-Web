@@ -23,10 +23,10 @@ jobs:
           docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
           docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA
 
-      # - name: Build the Users API
-      #   run: |
-      #     docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
-      #     docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA
+      - name: Build the Beta Acces API
+        run: |
+          docker build --tag ghcr.io/keinercx/microservices/beta-access-api:$GITHUB_SHA -f dockerfiles/Dockerfile_beta .
+          docker push ghcr.io/keinercx/microservices/beta-access-api:$GITHUB_SHA
 
       # - name: Build the Users API
       #   run: |

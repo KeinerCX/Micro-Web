@@ -24,6 +24,12 @@ spec:
                 configMapKeyRef:
                   name: database-creds
                   key: DATABASE_URL
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+                  optional: false 
 ---
 apiVersion: v1
 kind: Service
