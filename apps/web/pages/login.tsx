@@ -137,6 +137,7 @@ export default function Web() {
                   const token = await Util.User.Login(login_id, password);
                   console.log(token)
                   setMessage(`Successfully logged in as ${login_id}`)
+                  
                   window.location.href = "/"
                 } catch (e: any) {
                   setMessage(e.message);
