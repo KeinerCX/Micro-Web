@@ -30,12 +30,20 @@ export const appRouter = createRouter()
     resolve: async ({ input }) => {
       let { username, email, password, access_code } = input;
 
-      if (!username.match(UsernameRegex))
-        return { ok: false, data: { error: "invalid_username" } };
-      if (!validator.isEmail(email))
-        return { ok: false, data: { error: "invalid_email" } };
-      if (!password.match(PasswordRegex))
-        return { ok: false, data: { error: "invalid_password" } };
+      if (!username.match(UsernameRegex)) throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "invalid_username",
+      });
+
+      if (!validator.isEmail(email)) throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "invalid_email",
+      });
+
+      if (!password.match(PasswordRegex)) throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "invalid_password",
+      });
 
       let data = await prisma.betaCode.findFirst({
         where: {

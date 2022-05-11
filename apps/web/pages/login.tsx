@@ -2,6 +2,7 @@ import { createTRPCClient } from "@trpc/client";
 import React, { FormEventHandler, useState } from "react";
 import { usersServiceRouter } from "../../users/src/router";
 import { LockClosedIcon } from "@heroicons/react/solid";
+import { Util } from "../utility/users";
 
 export default function Web() {
   let [message, setMessage] = useState("");
@@ -35,8 +36,8 @@ export default function Web() {
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen dark:bg-gray-900">
-      <div className="flex flex-col dark:bg-gray-800 bg-gray-200 w-3/12 p-12">
-        <h1 className="sm:text-md md:text-lg lg:text-xl xl:text-2xl xl:text-3xl text-center font-semibold dark:text-white">
+      <div className="flex flex-col dark:bg-gray-800 bg-gray-200 w-3/12 p-12 rounded-xl">
+        <h1 className="sm:text-md md:text-lg lg:text-xl xl:text-3xl text-center font-semibold dark:text-white">
           Login to{" "}
           <span className="text-indigo-400 dark:text-indigo-500">Micro</span>
         </h1>
@@ -44,13 +45,13 @@ export default function Web() {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="username" className="sr-only">
-                Password
+              <label htmlFor="login_id" className="sr-only">
+                Login ID
               </label>
               <input
-                id="username"
-                name="username"
-                type="username"
+                id="login_id"
+                name="login_id"
+                type="login_id"
                 autoComplete="current-password"
                 required
                 className="appearance-none rounded-t-md relative block
@@ -62,7 +63,7 @@ export default function Web() {
                   placeholder-gray-500 text-gray-900 
                   focus:outline-none focus:ring-indigo-500
                   focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
+                placeholder="Email or Username"
               />
             </div>
             <div>
@@ -88,7 +89,7 @@ export default function Web() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
                 id="remember-me"
@@ -113,7 +114,7 @@ export default function Web() {
                 Forgot your password?
               </a>
             </div>
-          </div>
+          </div> */}
 
           <div className="mt-auto">
             <button
@@ -125,6 +126,23 @@ export default function Web() {
                 dark:bg-indigo-600 dark:hover:bg-indigo-700
                 focus:outline-none focus:ring-2 focus:ring-offset-2
                 focus:ring-indigo-500"
+              onClick={async (e) => { 
+                e.preventDefault();
+                const [ login_id, password ] = [ 
+                  (document.getElementById("login_id") as HTMLInputElement).value,
+                  (document.getElementById("password") as HTMLInputElement).value,
+                ]
+
+                try {
+                  const token = await Util.User.Login(login_id, password);
+                  console.log(token)
+                  setMessage(`Successfully logged in as ${login_id}`)
+
+                  //window.location.href = "/"
+                } catch (e: any) {
+                  setMessage(e.message);
+                }
+              }}
             >
               {/* <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockClosedIcon
