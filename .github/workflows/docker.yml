@@ -20,8 +20,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v9
-        id: verify-changed-files
+        uses: tj-actions/changed-files@v9
+        id: changed-files
         with:
           files: |
              apps/users
@@ -29,19 +29,19 @@ jobs:
              apps/web
       
       - name: Build the Users API
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'apps/users')
+        if: contains(steps.changed-files.outputs.changed_files, 'apps/users')
         run: |
           docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
           docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA
 
       - name: Build the Beta Acces API
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'apps/beta_access')
+        if: contains(steps.changed-files.outputs.changed_files, 'apps/beta_access')
         run: |
           docker build --tag ghcr.io/keinercx/microservices/beta-access-api:$GITHUB_SHA -f dockerfiles/Dockerfile_beta .
           docker push ghcr.io/keinercx/microservices/beta-access-api:$GITHUB_SHA
 
       - name: Build the Website
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'apps/web')
+        if: contains(steps.changed-files.outputs.changed_files, 'apps/web')
         run: |
           docker build --tag ghcr.io/keinercx/microservices/website:$GITHUB_SHA -f dockerfiles/Dockerfile_web .
           docker push ghcr.io/keinercx/microservices/website:$GITHUB_SHA
