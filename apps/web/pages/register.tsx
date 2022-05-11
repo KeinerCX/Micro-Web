@@ -133,6 +133,7 @@ export default function Web() {
                   await Util.User.Login(email, password);
                   setMessage(`Successfully logged in as ${user.username}`)
 
+                  // The try
                   window.location.href = "/"
                 } catch (e: any) {
                   setMessage(e.message);
