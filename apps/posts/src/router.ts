@@ -26,11 +26,14 @@ export const appRouter = trpc
   })
   .mutation("posts", {
     input: z.object({
-      amount: z.number(),
-      start: z.string(),
+      count: z.number(),
+      start: z.date(),
     }),
     resolve: async ({ input }) => {
-      return prisma.post;
+      return prisma.post.findMany({
+        where: { posted: { gte: input.start } },
+        take: input.count,
+      });
     },
   })
   .merge(
