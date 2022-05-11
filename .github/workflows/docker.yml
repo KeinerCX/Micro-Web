@@ -31,19 +31,19 @@ jobs:
              apps/web
       
       - name: Build the Users API
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           docker build --tag ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA -f dockerfiles/Dockerfile_users .
           docker push ghcr.io/keinercx/microservices/users-api:$GITHUB_SHA
 
       - name: Build the Beta Acces API
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           docker build --tag ghcr.io/keinercx/microservices/beta-access-api:$GITHUB_SHA -f dockerfiles/Dockerfile_beta .
           docker push ghcr.io/keinercx/microservices/beta-access-api:$GITHUB_SHA
 
       - name: Build the Website
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           docker build --tag ghcr.io/keinercx/microservices/website:$GITHUB_SHA -f dockerfiles/Dockerfile_web .
           docker push ghcr.io/keinercx/microservices/website:$GITHUB_SHA
