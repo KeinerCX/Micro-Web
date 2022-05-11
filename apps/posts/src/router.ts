@@ -39,14 +39,11 @@ export const appRouter = trpc
       .router<Context>()
       .mutation("create", {
         input: z.object({
-          username: z.string().min(3).max(20),
-          password: z.string().min(8).max(1000),
-          email: z.string().email(),
-
-          //this is temp
-          access_code: z.string().length(8),
+          body: z.string(),
         }),
-        resolve: async ({ input }) => {},
+        resolve: async ({ input }) => {
+          
+        },
       })
       .merge(
         "edit.",
