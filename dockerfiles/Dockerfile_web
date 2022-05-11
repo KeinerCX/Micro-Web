@@ -1,0 +1,21 @@
+FROM node:18
+LABEL org.opencontainers.image.source="https://github.com/keinercx/Micro-Web.git"
+
+# Create Directory for the Container
+WORKDIR /usr/src/app
+# Only copy the package.json file to work directory
+COPY ./apps/web/package.json .
+COPY ./apps/web/tsconfig.json .
+COPY ./prisma .
+# Install all Packages
+RUN npm install
+RUN npx prisma generate
+# Copy all other source code to work directory
+ADD ./apps/web/src /usr/src/app
+
+# TypeScript
+RUN npx tsc
+
+# Start
+CMD [ "npm", "start" ]
+EXPOSE 3000
