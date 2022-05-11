@@ -138,7 +138,7 @@ export default function Web() {
                   console.log(token)
                   setMessage(`Successfully logged in as ${login_id}`)
 
-                  //window.location.href = "/"
+                  window.location.href = "/"
                 } catch (e: any) {
                   setMessage(e.message);
                 }
