@@ -202,17 +202,27 @@ export const appRouter = createRouter()
         },
       })
 
-      // ~Flags~
-      .query("sessionInfo", {
-        input: z.string(),
-        resolve: async ({ ctx, input }) => {
-          return prisma.session.findFirst({
-            where: {
-              session_id: input,
+      .merge(
+        "session.",
+        createRouter()
+          .query("info", {
+            input: z.string(),
+            resolve: async ({ ctx, input }) => {
+              return prisma.session.findFirst({
+                where: {
+                  session_id: input,
+                },
+              });
             },
-          });
-        },
-      })
+          })
+
+          .mutation("renew", {
+            input: z.string(),
+            resolve: async ({ ctx, input }) => {
+              // Add session renew stuff
+            },
+          })
+      )
   )
   .merge(
     "admin.",
